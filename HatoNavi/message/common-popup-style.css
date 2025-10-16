@@ -1,0 +1,182 @@
+/* =============================================== */
+/* ★★★ ポップアップの中身専用の、最強共通スタイル ★★★ */
+/* =============================================== */
+
+/* --- 全体の基本設定 --- */
+:root {
+  --primary-color: #1e88e5;      /* キーカラー (青) */
+  --privacy-color: #2e7d32;     /* プライバシーのキーカラー (緑) */
+  --background-color: #f7f8fa; /* 背景色 */
+  --card-background: #ffffff;    /* カードの背景色 */
+  --text-color-dark: #2c3e50;  /* 濃い文字色 */
+  --text-color-light: #576574; /* 薄い文字色 */
+  --shadow-color: rgba(0, 0, 0, 0.08); /* 影の色 */
+}
+
+body { 
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.7;
+  padding: 30px 40px;
+  background-color: var(--background-color);
+  color: var(--text-color-light);
+  margin: 0;
+}
+
+/* --- ページ共通のヘッダー --- */
+h2.main-title {
+  text-align: center;
+  font-size: 26px;
+  margin: 0 0 15px 0;
+  color: var(--text-color-dark);
+}
+p.subtitle {
+  text-align: center;
+  font-size: 15px;
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+}
+
+
+/* =============================================== */
+/* ★★★ 使い方ページ専用のデザイン ★★★ */
+/* =============================================== */
+
+.page-how-to-use .main-title::before {
+  content: '🚀';
+  margin-right: 12px;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+}
+.feature-card {
+  background: var(--card-background);
+  border-radius: 16px;
+  padding: 25px 30px;
+  box-shadow: 0 5px 20px var(--shadow-color);
+  border: 1px solid #eef2f7;
+  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+.card-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.card-header h3 {
+  font-size: 18px;
+  color: var(--text-color-dark);
+  margin: 0;
+}
+.feature-card p {
+  font-size: 14px;
+  margin: 0;
+  padding-left: 60px;
+}
+code {
+  background-color: #f1f1f1;
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+
+/* =============================================== */
+/* ★★★ プライバシーページ専用のデザイン (かぶり解決版) ★★★ */
+/* =============================================== */
+
+.page-privacy .main-title::before {
+  content: '🛡️';
+  margin-right: 12px;
+}
+.privacy-timeline {
+  position: relative;
+  max-width: 600px;
+  margin: 30px auto;
+  padding-left: 40px; 
+}
+.privacy-timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 4px;
+  height: calc(100% - 20px);
+  background: #e0e5ec;
+  border-radius: 2px;
+}
+.timeline-item {
+  position: relative;
+  margin-bottom: 30px;
+}
+/* ★★★ ここからがかぶり解決の魔法！ ★★★ */
+.timeline-item b {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-color-dark);
+  display: flex;
+  align-items: flex-start; /* 上揃えのほうがキレイかも */
+  gap: 12px;
+  margin-bottom: 8px;
+  position: relative; /* 縦線の基準点 */
+}
+.timeline-item b::before {
+  content: '✅';
+  font-size: 20px;
+  /* 縦線の上に配置するための調整 */
+  position: absolute;
+  left: -48px;
+  top: -1px;
+  background-color: var(--background-color);
+  padding: 0 5px;
+  z-index: 1;
+}
+.timeline-item p {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-color-light);
+  margin: 0;
+  padding-left: 0; /* ← インデントはもう要らない */
+}
+
+
+/* =============================================== */
+/* ★★★ ページ共通のフッター ★★★ */
+/* =============================================== */
+hr {
+  border: none;
+  border-top: 1px solid #eef2f7;
+  margin: 40px 0;
+}
+.footer-link {
+  text-align: center;
+  font-size: 13px;
+}
+.footer-link a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: all 0.2s;
+}
+.footer-link a:hover {
+  border-bottom-color: var(--primary-color);
+}

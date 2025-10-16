@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>テスト：合わせ技アニメーション</title>
+    <style>
+        body { font-family: sans-serif; overflow: hidden; } /* 開始時はスクロール禁止 */
+
+        /* ===================================================================== */
+        /* ★★★ 合わせ技アニメーション ★★★ */
+        /* ===================================================================== */
+
+        /* --- 1. 背景を覆う「幕」 --- */
+        .curtain {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 50vh; /* vhを使うと、どんな画面サイズでもピッタリ半分になる */
+            background-color: #000000; /* カッコいい系の濃い色 */
+            z-index: 9998; /* シークバーの一個下 */
+            /* ★ アニメーションの指定：0.8秒かけて、ちょっと特殊な動きで開く */
+            transition: transform 0.3s cubic-bezier(0.86, 0, 0.07, 1);
+        }
+        #curtain-top { top: 0; }
+        #curtain-bottom { bottom: 0; }
+
+        
+        /* --- 2. 幕の上で動く「シークバー」 --- */
+        #seekbar-container {
+            position: fixed;
+            top: 50%;
+            left: 10%; /* 左右に少し余白を作る */
+            width: 80%;
+            z-index: 9999; /* 幕より手前 */
+            transform: translateY(-50%);
+            /* ★ アニメーションの指定：読み込み完了したら、幕と一緒に消える */
+            transition: opacity 0.3s ease;
+        }
+        .seekbar-track {
+            width: 100%;
+            height: 4px;
+            background-color: rgba(255, 0, 0, 0.2); /* 幕の色に合うように、白っぽく */
+        }
+        .seekbar-fill {
+            width: 100%;
+            height: 100%;
+            background-color: #db3434; /* 鳩ナビブルー！ */
+            transform-origin: left;
+            /* ★ アニメーションの指定：2秒かけてバーが伸びる */
+            animation: progress 0.3s ease-out forwards;
+        }
+        .seekbar-knob {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 14px;
+            height: 14px;
+            background-color: #ff0000;
+            border-radius: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            /* ★ アニメーションの指定：バーと全く同じタイミングで動く */
+            animation: knob-move 0.3s ease-out forwards;
+        }
+
+        /* --- アニメーションの定義 --- */
+        @keyframes progress {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+        @keyframes knob-move {
+            from { left: 0%; }
+            to { left: 100%; }
+        }
+
+        /* ===================================================================== */
+        /* ★★★ 読み込み完了後の動き ★★★ */
+        /* ===================================================================== */
+
+        body.is-loaded {
+            overflow: auto; /* スクロールを許可 */
+        }
+
+        /* 1. まず、シークバーがフワッと消える */
+        body.is-loaded #seekbar-container {
+            opacity: 0;
+        }
+        
+        /* 2. その後、幕が開く！ */
+        body.is-loaded #curtain-top {
+            transform: translateY(-100%);
+        }
+        body.is-loaded #curtain-bottom {
+            transform: translateY(100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- 幕 -->
+    <div id="curtain-top" class="curtain"></div>
+    <div id="curtain-bottom" class="curtain"></div>
+    <!-- シークバー -->
+    <div id="seekbar-container">
+        <div class="seekbar-track">
+            <div class="seekbar-fill"></div>
+            <div class="seekbar-knob"></div>
+        </div>
+    </div>
+
+    <h1>鳩ナビHistory</h1>
+    <p>この文字が見えたら読み込み完了！</p>
+    <script>
+        // バーのアニメーションが終わるのを待ってから…
+        setTimeout(() => {
+            // "is-loaded" クラスを追加して、幕が開くアニメーションを発動！
+            document.body.classList.add('is-loaded');
+        }, 300); // 2000ミリ秒 = 2秒
+    </script>
+</body>
+</html>

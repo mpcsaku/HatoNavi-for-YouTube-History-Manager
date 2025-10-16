@@ -1,0 +1,210 @@
+{
+  "extName": {
+    "message": "鳩ナビ for YouTube History Manager"
+  },
+  "extDesc": {
+    "message": "Youtube公式の視聴履歴に依存しない、独自の視聴履歴を作成し管理します。独自のレジューム機能、お気に入り、タグ付け、検索機能を付与します。"
+  },
+
+  "HistoryTitle": {
+    "message": "鳩ナビHistory"
+  },
+  "Export": {
+    "message": "エクスポート",
+    "description": "The title of the history page."
+  },
+  "Import": {
+    "message": "インポート"
+  },
+  "FilterBy": {
+    "message": "表示フィルター"
+  },
+  "AllVideos": {
+    "message": "すべての動画"
+  },
+  "Unwatched": {
+    "message": "未視聴"
+  },
+  "Watched": {
+    "message": "視聴済み"
+  },
+  "Favorites": {
+    "message": "お気に入り"
+  },
+  "TagManagement": {
+    "message": "🏷️タグ管理"
+  },
+  "ClearAllHistory": {
+    "message": "すべての履歴を削除"
+  },
+
+  "confirmDeleteAll": {
+    "message": "本当に全ての視聴履歴を削除しますか？\nこの操作は元に戻せません。",
+    "description": "視聴履歴を全削除しようとした時に、表示されるアラートメッセージ"
+  },
+
+ "ErrorCannotDeleteFavorite": {
+    "message": "お気に入りに登録されている動画は削除できません。\nまず、お気に入りを解除してください。",
+    "description": "お気に入りに登録されている動画を削除しようとした際のエラーメッセージ。先に解除を促す。"
+
+ },
+
+ "DeleteHistory": {
+    "message": "$1\nこの視聴履歴を削除しますか？",
+    "description": "視聴履歴項目を削除する際の確認ダイアログのメッセージ。"
+ },
+
+  "TitleUnknown": {
+    "message": "(タイトル不明)",
+    "description": "動画のタイトルが取得できなかった場合に表示する代替テキスト。"
+  },
+  "ChannelUnknown": {
+    "message": "(チャンネル名不明)",
+    "description": "チャンネル名が取得できなかった場合に表示する代替テキスト。"
+  },
+
+
+
+
+
+
+   "ImportMessage": {
+    "message": "☆☆ここからインポート関連☆☆"
+  },
+  "SelectImportMethod": {
+    "message": "インポート方法を選択してください。\n\n読み込みデータ: $1\n現在のデータ: $2件\n\n1: 現在の履歴に追加する (マージ)\n2: 全て入れ替える (上書き)",
+    "description": "インポート方式のメッセージ"
+  },
+  "FileLoadError": {
+  "message": "ファイルの読み込みに失敗しました。",
+  "description": "ファイル読み込み処理が失敗した際に表示されるエラーメッセージ。"
+  } ,
+  
+  "ErrorInvalidBackupFile": {
+    "message": "エラー: このファイルは有効な「鳩ナビ」のバックアップファイルではありません。",
+    "description": "インポートに失敗した際に表示されるエラーメッセージ。ファイルが拡張機能のバックアップ形式ではないことを通知する。"
+  },
+
+  "StatusImportMergeComplete": {
+    "message": "インポート(マージ)が完了しました。\n\n新規追加: $1件\nデータ更新: $2件\n\nページを更新します。",
+    "description": "マージインポート完了のメッセージ"
+  },
+  "StatusImportOverwriteComplete": {
+    "message": "インポート(上書き)が完了しました。ページを更新します。",
+    "description": "データの上書きインポートが完了したことをユーザーに通知するメッセージ。"
+  },
+
+  
+  "ImportOverwriteWarning": {
+    "message": "警告：現在の「視聴履歴」と「タグリスト」は全て削除され、インポートしたデータに置き換わります。\n（拡張機能の設定は維持されます）\n\nこの操作は元に戻せません。よろしいですか？",
+    "description": "インポート時に上書き保存する時のアラートメッセージ"
+  },
+  
+  "ErrorNoDataToExport": {
+    "message": "エクスポートするデータがありません。",
+    "description": "拡張機能のデータが空で、エクスポート処理が実行できない場合に表示するエラーメッセージ。"
+  },
+
+
+
+
+
+
+
+
+  "TagManagementPopUp": {
+    "message": "☆☆ここからタグ管理ポップアップ☆☆"
+  },
+  "StatusTagUpdated": {
+    "message": "タグ情報を更新しました！！"
+  },
+  "TagAdd": {
+    "message": "+タグ追加"
+  },
+  "TagCancel": {
+    "message": "キャンセル"
+  },
+  "TagSave": {
+    "message": "✓ 変更を保存"
+  },
+
+  "LabelNewTagName": {
+    "message": "新しいタグ名"
+  },
+
+  "FavoritePopUP": {
+    "message": "☆☆ここから☆マーク関連☆☆"
+  },
+
+  "AddToFavorites": {
+    "message": "お気に入りに追加"
+  },
+  "Unfavorite": {
+    "message": "お気に入り解除"
+  },
+
+  "FavoTagAdd": {
+    "message": "新しいタグ"
+  },
+
+  "FavoNewTagName": {
+    "message": "新しいタグ名を入力してください。"
+  },
+
+  "TagInUse": {
+    "message": "そのタグは既に存在しています。"
+  },
+  "MarkAsWatchedButton": {
+    "message": "視聴済みにする"
+  },
+
+  "ButtonDeleteHistory": {
+    "message": "この履歴を削除する"
+  },
+
+  "LabelAll": {
+    "message": "全ての動画"
+  },
+
+  "Loading": {
+    "message": "読み込み中..."
+  },
+
+  "StatusLoadComplete": {
+    "message": "読み込み完了！！"
+  },
+  "MessageNoMatchingVideos": {
+    "message": "この条件に一致する動画はありません。",
+    "description": "一致する動画が見つからなかったことを示す汎用的なメッセージ。"
+  },
+  "NoHistory": {
+    "message": "視聴履歴がありません。",
+    "description": "拡張機能に視聴履歴データが存在しない場合に表示するメッセージ。"
+  },
+
+
+
+
+
+  "ExtensionBarPopUp": {
+    "message": "☆☆ここから拡張バーポップアップ☆☆"
+  },
+  "removeTimestamp": {
+    "message": "URL内のタイムコードを削除"
+  },
+  "HatoNaviHistory": {
+    "message": "鳩ナビ History"
+  },
+
+
+
+
+
+
+  "Etc": {
+    "message": "☆☆その他翻訳☆☆"
+  },
+  "ResumeNotification": {
+    "message": "🕊️れじゅ～む $1"
+  }
+}

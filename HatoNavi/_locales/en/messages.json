@@ -1,0 +1,225 @@
+{
+  "extName": {
+    "message": "HatoNavi for YouTube History Manager",
+    "description": "The name of the extension."
+  },
+  "extDesc": {
+    "message": "Create and manage your own independent watch history, separate from YouTube's official history. Features include a unique resume function, favorites, tagging, and powerful search capabilities.",
+    "description": "The description of the extension."
+  },
+
+  "HistoryTitle": {
+    "message": "HatoNaviHistory",
+    "description": "The title of the history page."
+  },
+  "Export": {
+    "message": "Export",
+    "description": "The title of the history page."
+  },
+  "Import": {
+    "message": "Import"
+  },
+  "FilterBy": {
+    "message": "Filter By:"
+  },
+  "AllVideos": {
+    "message": "All Videos"
+  },
+  "Unwatched": {
+    "message": "Unwatched"
+  },
+  "Watched": {
+    "message": "Watched"
+  },
+  "Favorites": {
+    "message": "Favorites"
+  },
+  "TagManagement": {
+    "message": "🏷️Tag Management"
+  },
+  "ClearAllHistory": {
+    "message": "Clear All History"
+  },
+
+  "confirmDeleteAll": {
+    "message": "Are you sure you want to delete all watch history?\nThis action cannot be undone.",
+    "description": "Confirmation message displayed when the 'Delete All History' button is clicked."
+  },
+
+ "ErrorCannotDeleteFavorite": {
+    "message": "Videos registered as favorites cannot be deleted.\nPlease unfavorite the video first.",
+    "description": "お気に入りに登録されている動画を削除しようとした際のエラーメッセージ。先に解除を促す。"
+
+ },
+  "DeleteHistory": {
+    "message": "$1\nDelete this watch history?",
+    "description": "視聴履歴項目を削除する際の確認ダイアログのメッセージ。"
+ },
+
+  "TitleUnknown": {
+    "message": "(Title Unknown)",
+    "description": "動画のタイトルが取得できなかった場合に表示する代替テキスト。"
+  },
+  "ChannelUnknown": {
+    "message": "(Channel Unknown)",
+    "description": "チャンネル名が取得できなかった場合に表示する代替テキスト。"
+  },
+
+
+
+
+
+
+   "ImportMessage": {
+    "message": "☆☆ここからインポート関連☆☆"
+  },
+
+
+    "SelectImportMethod": {
+    "message": "Please select an import method.\n\nImporting Data: $1 items\nCurrent Data: $2 items\n\n1: Add to current history (Merge)\n2: Replace all (Overwrite)",
+    "description": "インポート方式のメッセージ"
+  },
+  "FileLoadError": {
+    "message":"Failed to load the file.",
+    "description":"ファイル読み込み処理が失敗した際に表示されるエラーメッセージ。"
+  } ,
+  "ErrorInvalidBackupFile": {
+    "message": "Error: This file is not a valid \"Hato Navi\" backup file.",
+    "description": "インポートに失敗した際に表示されるエラーメッセージ。ファイルが拡張機能のバックアップ形式ではないことを通知する。"
+  },
+
+
+
+    "StatusImportMergeComplete": {
+    "message": "Import (Merge) complete.\n\nNewly Added: $1 items\nData Updated: $2 items\n\nRefreshing the page.",
+    "description": "マージインポート完了のメッセージ"
+  },
+
+
+  "StatusImportOverwriteComplete": {
+    "message": "Import (Overwrite) complete. Refreshing the page.",
+    "description": "データの上書きインポートが完了したことをユーザーに通知するメッセージ。"
+  },
+
+  
+  "ImportOverwriteWarning": {
+    "message": "WARNING: Your current 「Watch History」 and 「Tag List」 will be completely deleted and replaced with the imported data. (Extension settings will be maintained.)\n\nThis operation cannot be undone. Are you sure you want to proceed?",
+    "description": "インポート時に上書き保存する時のアラートメッセージ"
+  },
+
+  "ErrorNoDataToExport": {
+    "message": "No data available for export.",
+    "description": "拡張機能のデータが空で、エクスポート処理が実行できない場合に表示するエラーメッセージ。"
+  },
+
+
+
+
+  "TagManagementPopUp": {
+    "message": "☆☆ここからタグ管理ポップアップ☆☆"
+  },
+  "StatusTagUpdated": {
+    "message": "Tag information updated!"
+  },
+  "TagAdd": {
+    "message": "+Add Tag"
+  },
+  "TagCancel": {
+    "message": "Cancel"
+  },
+  "TagSave": {
+    "message": "✓ Save Changes"
+  },
+
+  "LabelNewTagName": {
+    "message": "New Tag Name"
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "FavoritePopUP": {
+    "message": "☆☆ここから☆マーク長押しポップアップ☆☆"
+  },
+
+  "AddToFavorites": {
+    "message": "Add to Favorites"
+  },
+
+  "Unfavorite": {
+    "message": "Unfavorite"
+  },
+  "FavoTagAdd": {
+    "message": "NewTag"
+  },
+  "FavoNewTagName": {
+    "message": "Enter a new tag name"
+  },
+  "TagInUse": {
+    "message": "A tag with this name already exists."
+  },
+
+  "MarkAsWatchedButton": {
+    "message": "Mark as Watched"
+  },
+
+  "ButtonDeleteHistory": {
+    "message": "Delete this History"
+  },
+
+  "LabelAll": {
+    "message": "All Videos"
+  },
+  "Loading": {
+    "message": "Loading..."
+  },
+
+  "StatusLoadComplete": {
+    "message": "Load Complete!!"
+  },
+  "MessageNoMatchingVideos": {
+    "message": "No matching videos found.",
+    "description": "一致する動画が見つからなかったことを示す汎用的なメッセージ。"
+  },
+  "NoHistory": {
+    "message": "No watch history available.",
+    "description": "拡張機能に視聴履歴データが存在しない場合に表示するメッセージ。"
+  },
+
+
+
+
+  "ExtensionBarPopUp": {
+    "message": "☆☆ここから拡張ポップアップ関連☆☆"
+  },
+  "removeTimestamp": {
+    "message": "Remove timecodes in URLs"
+  },
+  "HatoNaviHistory": {
+    "message": "HatoNavi History"
+  },
+
+
+
+
+
+
+  
+  "Etc": {
+    "message": "☆☆その他翻訳☆☆"
+  },
+
+  "ResumeNotification": {
+    "message": "Resume $1"
+  }
+}

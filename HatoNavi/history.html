@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title data-i18n="HistoryTitle">鳩ナビHistory</title>
+    <link rel="stylesheet" href="history.css" />
+  </head>
+
+  <body>
+    
+    <!-- ===== ヘッダーエリア ===== -->
+    <header class="page-header">
+ <div class="title-with-icon">
+    <img src="icons/icon128.png" alt="HatoNavi Icon" class="header-icon">
+    <h1 data-i18n="HistoryTitle" class="main-title">鳩ナビHistory</h1>
+  </div>
+      <div class="header-controls">
+        <div class="io-buttons">
+          <button id="export-button" class="io-button" data-i18n="Export">エクスポート</button>
+          <button id="import-button" class="io-button" data-i18n="Import">インポート</button>
+        </div>
+        <div class="filter-group">
+          <label for="filter-select" data-i18n="FilterBy">表示フィルター:</label>
+          <select id="filter-select">
+            <option value="all" data-i18n="AllVideos">全ての動画</option>
+            <option value="unwatched" data-i18n="Unwatched">未視聴</option>
+            <option value="watched" data-i18n="Watched">視聴済み</option>
+            <option value="favorites" data-i18n="Favorites">お気に入り</option>
+          </select>
+        </div>
+        <button id="tag-edit-button" class="io-button" data-i18n="TagManagement">🏷️タグ管理</button>
+        <button id="delete-all-button" class="danger-button" data-i18n="ClearAllHistory">
+          履歴を全て削除
+        </button><a href="message/how-to-use.html" id="info-popup-button" title="使い方とプライバシーポリシー">?</a>
+      </div>
+      
+
+    </header>
+
+
+<!-- ===== タグフィルターバー ===== -->
+    <div id="tag-filter-container">
+      <!-- ★★★ ここに AND/OR 切り替えスイッチを追加！ ★★★ -->
+      <div id="and-or-switch-container">
+          <span>OR</span>
+          <label class="switch">
+              <input type="checkbox" id="and-or-toggle">
+              <span class="slider"></span>
+          </label>
+          <span>AND</span>
+      </div>
+      <div id="tag-filter-list"></div>
+    </div>
+
+    <!-- ===== 動画一覧リスト ===== -->
+    <div id="history-list"></div>
+
+    <!-- ===== 無限スクロールのトリガー ===== -->
+    <div id="scroll-trigger" data-i18n="Loading">読み込み中...</div>
+
+
+    <div id="info-popup-container"></div>
+    <!-- ===== ポップアップ用のコンテナ (普段は空っぽ) ===== -->
+    <div id="tag-manager-container"></div>
+
+    <!-- ===== インポート用の隠し要素 ===== -->
+    <input type="file" id="import-file-input" hidden accept=".json" />
+
+    <!-- ===== JavaScriptファイルの読み込み ===== -->
+    <script src="history.js"></script>
+    
+  </body>
+</html>

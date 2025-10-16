@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <div class="setting-row">
+      <!--<label for="clean-url-toggle">URL内のタイムコードを削除</label>-->
+      <label for="clean-url-toggle" data-i18n="removeTimestamp">URL内のタイムコードを削除</label>
+
+      <label class="switch">
+        <input type="checkbox" id="clean-url-toggle" />
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="setting-row">
+      <button id="history-button" data-i18n="HatoNaviHistory">鳩ナビ History</button>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

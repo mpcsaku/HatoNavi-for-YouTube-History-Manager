@@ -1,0 +1,1310 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background-color: #f1f1f1;
+}
+
+h1 {
+  background-color: #fff;
+  padding: 20px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* アイコンとタイトルを囲む箱のスタイル */
+.title-with-icon {
+  display: flex;         /* 中身（アイコンと文字）を横並びにする魔法の言葉 */
+  align-items: center;   /* 上下の位置を中央に揃える */
+  gap: 12px;             /* アイコンと文字の間に隙間を作る */
+}
+
+/* アイコン自体のスタイル */
+.header-icon {
+  width: 32px;           /* アイコンの幅 */
+  height: 32px;          /* アイコンの高さ */
+}
+
+
+/* ★★★ メインタイトルのスタイル (3D風) ★★★ */
+.main-title {
+  color: #444;
+  font-weight: bold;
+  font-size: 28px;
+  /* 影を「,」で区切って、何個も重ねるのがポイント！ */
+  text-shadow:
+    1px 1px 0px #ddd, /* すぐ右下に、明るいグレーの細い影 */
+    2px 2px 0px #bbb, /* そのさらに右下に、少し濃い影 */
+    3px 3px 5px rgba(0, 0, 0, 0.3); /* 最後にぼんやりした黒い影 */
+}
+
+#history-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.video-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+  position: relative;
+  /* ★★★ 削除ボタンを配置するために追加 ★★★ */
+}
+
+.video-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* ★★★ ここからサムネイルの黒帯対策CSSを追加/変更 ★★★ */
+
+/* 1. サムネイルを囲む新しい箱のスタイル */
+
+.thumbnail-wrapper {
+  position: relative;
+  /* 子要素(img)を絶対配置するための基準点にする */
+  width: 100%;
+  padding-top: 56.25%;
+  /* これでアスペクト比を16:9に固定します (9 ÷ 16 = 0.5625) */
+  background-color: #000;
+  /* 画像読み込み中の背景を黒にする */
+}
+
+/* 2. サムネイル画像自体のスタイルを大幅に変更 */
+
+.thumbnail {
+  position: absolute;
+  /* 親要素(.thumbnail-wrapper)いっぱいに広がるようにする */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  /* アスペクト比を保ったまま、親要素を完全に覆うように拡大・縮小されます */
+  pointer-events: none;
+}
+
+/* ★★★ ここまで ★★★ */
+
+.info {
+  padding: 12px;
+}
+
+.info h3 {
+  font-size: 14px;
+  margin: 0 0 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.info p {
+  font-size: 12px;
+  margin: 0;
+  color: #666;
+}
+
+#loading {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #666;
+}
+
+/* ★★★ ここから削除ボタンのスタイルを追加 ★★★ */
+
+/* 微調整の提案 */
+
+.delete-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  line-height: 40px;
+  /* ← heightと同じ値にすると中央揃えになります */
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s, background-color 0.2s;
+  z-index: 10;
+  padding: 0;
+  /* 念のため追加 */
+}
+
+/* 親要素(.video-item)にマウスが乗った時にボタンを表示 */
+
+.video-item:hover .delete-button {
+  opacity: 1;
+}
+
+/* ボタン自体にマウスが乗った時のスタイル */
+
+.delete-button:hover {
+  background-color: rgba(200, 0, 0, 0.8);
+}
+
+/* ★★★ ここから視聴完了動画用のスタイルを追加 ★★★ */
+
+/* 完了済みの動画アイテム自体のスタイル（少しだけ透明にする） */
+
+.video-item.is-completed {
+  opacity: 0.85;
+}
+
+/* サムネイルを囲むラッパーに、黒いオーバーレイとアイコンを追加するための基準点とする */
+
+.video-item.is-completed .thumbnail-wrapper {
+  position: relative;
+}
+
+/* サムネイルの上に重ねる「黒いフィルター」 */
+
+.video-item.is-completed .thumbnail-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  /* 50%の黒 */
+  z-index: 1;
+}
+
+/* サムネイルの中央に表示する「リプレイアイコン」 */
+
+.video-item.is-completed .thumbnail-wrapper::before {
+  content: "↺";
+  /* これはリプレイマークの文字です */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* 上下左右中央に配置 */
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  opacity: 0.8;
+  z-index: 2;
+  /* 黒フィルターより手前に表示 */
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  /* アイコンを読みやすくするための影 */
+}
+
+/* ★★★ ここから全削除ボタン用のスタイルを追加 ★★★ */
+
+/* h1とボタンを横並びにするためのヘッダースタイル */
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  /* 両端に寄せる */
+  align-items: center;
+  /* 上下中央揃え */
+  background-color: #fff;
+  padding: 15px 25px;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+}
+
+/* h1の余白を調整 */
+
+.page-header h1 {
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  border-bottom: none;
+}
+
+/* 危険な操作であることを示すボタンの基本スタイル */
+
+.danger-button {
+  background-color: #fbecec;
+  border: 1px solid #e57373;
+  color: #c62828;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* ボタンにマウスを乗せた時のスタイル */
+
+.danger-button:hover {
+  background-color: #e57373;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* ★★★ ここからプログレスバー用のスタイルを追加 ★★★ */
+
+/* プログレスバーの背景（溝）のスタイル */
+
+.progress-bar-container {
+  position: absolute;
+  /* 親要素(.thumbnail-wrapper)を基準に配置 */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  /* バーの高さ */
+  background-color: rgba(255, 255, 255, 0.35);
+  /* 半透明の白 */
+  z-index: 3;
+  /* 視聴完了の黒フィルターより手前に表示 */
+}
+
+/* 実際の進捗（赤いバー）のスタイル */
+
+.progress-bar {
+  height: 100%;
+  background-color: #ff0000;
+  /* YouTubeの赤色 */
+}
+
+/* 視聴完了動画の場合、バーを少し暗くして重複表示を防ぐ */
+
+.is-completed .progress-bar-container {
+  background-color: rgba(80, 80, 80, 0.5);
+}
+
+/* ヘッダー右側のコントロール要素をまとめる */
+
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  /* 要素間のスペース */
+}
+
+
+/* bodyに「hide-completed」クラスが付いた場合に、
+   視聴済み動画(.video-item.is-completed)を非表示にする */
+
+body.hide-completed .video-item.is-completed {
+  display: none;
+}
+
+/* ★★★ ここから「視聴済みにする」ボタンのスタイルを追加 ★★★ */
+
+.mark-watched-button {
+  position: absolute;
+  /* 削除ボタンの top(8px) + height(40px) + margin(4px) = 52px */
+  top: 52px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 24px;
+  /* アイコンサイズを少し調整 */
+  font-weight: bold;
+  line-height: 40px;
+  /* 上下中央揃え */
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+/* 親要素(.video-item)にマウスが乗った時にボタンを表示 */
+
+.video-item:hover .mark-watched-button {
+  opacity: 1;
+}
+
+/* ボタン自体にマウスが乗った時のスタイル（緑色にする） */
+
+.mark-watched-button:hover {
+  background-color: rgba(30, 150, 30, 0.8);
+}
+
+/* フィルターのプルダウンメニューのグループ */
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-group label {
+  font-size: 14px;
+  color: #333;
+}
+
+#filter-select {
+  font-size: 14px;
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+/* --- お気に入りボタン（☆）のスタイル --- */
+
+.favorite-button {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  /* 左上に配置 */
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 24px;
+  line-height: 40px;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  /* 通常は非表示 */
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+/* マウスオーバーで表示 */
+
+.video-item:hover .favorite-button {
+  opacity: 1;
+}
+
+/* お気に入り登録済みのスタイル（黄色い星） */
+
+.favorite-button.is-favorite {
+  background-color: #ffca28;
+  /* 黄色 */
+  color: #fff;
+  opacity: 1;
+  /* 常に表示 */
+  text-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+.favorite-button:hover {
+  transform: scale(1.1);
+  /* 少し拡大するアニメーション */
+}
+
+/* ★★★ 新しい日付表示のデザイン ★★★ */
+
+.date-overlay {
+  /* --- 配置と重なり順 --- */
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  /* ★ 左下に変更！ ★ */
+  z-index: 10;
+  /* --- 丸い形とサイズ --- */
+  width: 44px;
+  /* ★ 大きくしたよ ★ */
+  height: 44px;
+  border-radius: 50%;
+  /* ★ これでまん丸になる！ ★ */
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  /* 白いフチを追加 */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  /* ちょっと影もつける */
+  /* --- 中の文字を上下中央揃えにするおまじない --- */
+  display: flex;
+  flex-direction: column;
+  /* 月と日を縦に並べる */
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  /* 行の高さを詰める */
+  /* --- 文字のスタイル --- */
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* ★★★ ここからが色分けの指定！ ★★★ */
+
+.date-overlay.date-today {
+  background-color: #e53935;
+}
+
+/* 今日は情熱の赤！ */
+
+.date-overlay.date-yesterday {
+  background-color: #1e88e5;
+}
+
+/* 昨日はクールな青！ */
+
+.date-overlay.date-week {
+  background-color: #43a047;
+}
+
+/* 1週間以内は安心の緑！ */
+
+.date-overlay.date-old {
+  background-color: #546e7a;
+}
+
+/* それより前は落ち着いたグレー */
+
+/* ★★★ 月と日、それぞれの文字サイズを調整 ★★★ */
+
+.date-overlay .date-month {
+  font-size: 10px;
+}
+
+.date-overlay .date-day {
+  font-size: 20px;
+  /* 月と日の間にうっすら線を引く */
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  padding-top: 2px;
+  margin-top: 2px;
+}
+
+/* ★★★ インポート/エクスポートボタン用のスタイル ★★★ */
+
+/* ボタンをまとめる箱 */
+
+.io-buttons {
+  display: flex;
+  gap: 10px;
+  /* ボタン同士の間隔 */
+}
+
+/* ボタンの基本スタイル */
+
+.io-button {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* ボタンにマウスを乗せた時のスタイル */
+
+.io-button:hover {
+  background-color: #e0e0e0;
+  border-color: #bbb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ★★★ 無限スクロールのトリガー用のスタイル ★★★ */
+
+#scroll-trigger {
+  padding: 40px;
+  text-align: center;
+  font-size: 18px;
+  color: #888;
+  font-weight: bold;
+}
+
+history.cssに、これを追記！ .thumbnail-error {
+  background-color: #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.thumbnail-error::before {
+  content: "?";
+  font-size: 80px;
+  color: #999;
+  font-weight: bold;
+}
+.meta-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 4px;
+}
+.author-name,
+.last-watched-date {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.author-name {
+  flex-shrink: 1; /* チャンネル名が長すぎたら縮む */
+}
+.last-watched-date {
+  flex-shrink: 0; /* 日付は縮まない */
+  padding-left: 8px;
+}
+
+
+
+
+
+
+/* ★★★ タグ表示ボタン (ソナーパルス・アニメーション) ★★★ */
+.toggle-tags-button {
+  /* --- ボタンの基本デザイン --- */
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: transparent; /* 背景は完全に透明！ */
+  border: none;
+  margin-left: 8px;
+  cursor: pointer;
+  
+  /* ★★★ これが超重要！アイコンをCSSだけで作るための準備 ★★★ */
+  position: relative;
+}
+
+/* --- 中心にある「点」を作る --- */
+.toggle-tags-button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;  
+  height: 12px; 
+  border-radius: 50%;
+  background-color: #ff0000;
+  transition: all 0.3s cubic-bezier(0.2, 1.5, 0.7, 1); /* ★★★ 動きに弾みを追加！ ★★★ */
+}
+
+/* ★★★ マウスオーバーで「じゅわ〜」っと大きくする ★★★ */
+.toggle-tags-button:hover::before {
+  transform: translate(-50%, -50%) scale(1.5); /* 1.5倍に拡大！ */
+}
+
+/* --- 広がっていく「波紋」を作る --- */
+.toggle-tags-button::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2px solid #1a73e8;
+  opacity: 0;
+  transform-origin: center;
+}
+
+/* ★★★ アニメーションの中身を定義する ★★★ */
+@keyframes sonar-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.3);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* --- 開いた時 (toggledクラスが付いた時) のスタイル --- */
+/* 中心の点の色を固定 */
+.toggle-tags-button.toggled::before {
+  background-color: #ffca28; /* 開いてる時は黄色い点に */
+}
+/* 波紋のアニメーションを発動！ */
+.toggle-tags-button.toggled::after {
+  animation: sonar-pulse 0.8s ease-out;
+}
+
+
+
+
+
+
+
+/* タグを囲むコンテナ (マージンを追加) */
+.tags-container {
+  display: none;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 8px; /* 上の行との間隔を確保 */
+}
+/* 表示する時のスタイル */
+.tags-container.show {
+  display: flex;
+}
+
+/* タグ1つ1つのデザイン */
+.tag-item {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  color: white;
+  background-color: #777;
+  font-weight: 500;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* last-watched-date のスタイルをちょっと調整 */
+.last-watched-date {
+  flex-shrink: 0;
+  padding-left: 8px;
+  display: flex; /* 子要素のボタンをうまく配置するため */
+  align-items: center; /* 文字とボタンの縦位置を中央に */
+}
+
+/* history.css の一番下に追加 */
+
+/* ★★★ タグ編集ポップアップ用のスタイル ★★★ */
+
+/* 画面全体を覆う黒い背景 */
+.tag-editor-overlay {
+  position: fixed; /* 画面に固定 */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* ちょっと透明な黒 */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* 他の要素より手前に表示 */
+  z-index: 1000;
+}
+
+/* ポップアップ本体 */
+.tag-editor-popup {
+  position: absolute; /* JSで位置を細かく調整するため */
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 180px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  opacity: 0; /* 最初は見えなくしておく */
+  animation: fadeIn 0.5s ease-out forwards; /* 0.2秒かけてフワッと表示 */
+}
+
+/* タグが縦に並ぶリスト */
+.tag-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* ボタンとボタンの間隔 */
+  margin-bottom: 10px;
+}
+
+/* タグ選択ボタン */
+.tag-select-item {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: sans-serif; /* フォントを統一 */
+  transition: background-color 0.2s, border-color 0.2s;
+  text-align: center;
+}
+.tag-select-item:hover {
+  background-color: #e0e0e0;
+}
+/* 選択されてるときのデザイン */
+.tag-select-item.is-selected {
+  background-color: #4dabf7; /* 明るい青 */
+  color: white;
+  border-color: #1e88e5; /* 濃い青 */
+  font-weight: bold;
+}
+
+/* "add"ボタンが入る下のエリア */
+.tag-add-section {
+  border-top: 1px solid #eee; /* 上のエリアとの仕切り線 */
+  padding-top: 10px;
+}
+.add-tag-button {
+  width: 100%;
+  padding: 8px;
+  border: 1px dashed #aaa; /* 点線 */
+  border-radius: 8px;
+  background-color: transparent; /* 背景なし */
+  cursor: pointer;
+  color: #555;
+  font-size: 14px;
+  font-family: sans-serif;
+}
+.add-tag-button:hover {
+  background-color: #f7f7f7;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px); /* 少し上からスライドイン */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ポップアップ表示中に、bodyのスクロールを禁止するクラス */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* オーバーレイ（黒い背景）のスタイル */
+.tag-editor-overlay {
+  /* 背景色が0.15秒かけて透明になるようにトランジションを設定 */
+  transition: background-color 0.15s ease-in;
+}
+/* is-closingクラスが付いたら、背景色を透明にする */
+.tag-editor-overlay.is-closing {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+/* ポップアップ本体が閉じる時のアニメーション */
+.tag-editor-popup.is-closing {
+  /* fadeOutアニメーションを0.15秒かけて実行 */
+  animation: fadeOut 0.15s ease-in forwards;
+}
+
+/* fadeOutアニメーションの中身の定義 */
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* ★★★ ポップアップの「しっぽ」のデザイン ★★★ */
+
+/* ポップアップ本体に、しっぽを生やすための基準点を設定 */
+.tag-editor-popup {
+  position: relative; /* しっぽの位置を決めるための基準 */
+}
+
+/* 通常時 (下向き表示) の、上向きのしっぽ */
+.tag-editor-popup::before {
+  content: "";
+  position: absolute;
+  top: 15px; /* ボタンの高さの中心あたり */
+  left: -8px; /* ポップアップの外側にはみ出す */
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid white; /* これが三角形の本体 */
+}
+
+/* 上向き表示用のクラスが付いた時の、下向きのしっぽ */
+.tag-editor-popup.shows-above::before {
+  top: auto; /* 上の位置指定を解除 */
+  bottom: 15px; /* 下からの位置を指定 */
+  transform: rotate(180deg); /* 180度回転させて、逆向きにする */
+}
+
+/* ★★★ タグ管理ポップアップ用のスタイル (完成版 by Emma) ★★★ */
+
+/* ポップアップが表示されるコンテナ (普段は隠れてる) */
+#tag-manager-container {
+  display: none;
+}
+#tag-manager-container.show {
+  display: block;
+}
+
+/* 画面全体を覆う、半透明の黒い背景 */
+#tag-manager-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* ちょっと濃くしてリッチに */
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ポップアップ本体 */
+#tag-manager-popup {
+  background-color: #f9f9f9; /* 真っ白より少し柔らかい色に */
+  padding: 24px;
+  border-radius: 12px; /* 角を丸くして可愛く */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  width: 450px;
+  max-width: 90%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  /* ★★★ アニメーションを追加！ ★★★ */
+  animation: fadeInPopup 0.3s ease-out forwards;
+}
+
+@keyframes fadeInPopup {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#tag-manager-popup h3 {
+  margin: 0 0 15px 0;
+  text-align: center;
+  font-size: 20px;
+  color: #333;
+}
+
+/* タグが並ぶリストエリア */
+.tag-manager-list {
+  overflow-y: auto;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  flex-shrink: 1;
+}
+
+/* タグ1行のスタイル */
+.tag-manager-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  transition: all 0.2s; /* 削除時のアニメーション用 */
+}
+/* 奇数行と偶数行でちょっと色を変えると見やすいかも */
+.tag-manager-item:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.tag-manager-item input {
+  flex-grow: 1;
+  margin-right: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 6px 10px;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.tag-manager-item input:focus {
+  outline: none;
+  border-color: #4dabf7;
+  box-shadow: 0 0 0 3px rgba(77, 171, 247, 0.3);
+}
+
+.tag-manager-item .delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  padding: 4px;
+  opacity: 0.6;
+  transition: opacity 0.2s, color 0.2s;
+}
+.tag-manager-item .delete-btn:hover {
+  opacity: 1;
+  color: #e53935; /* 赤色に！ */
+}
+
+/* 削除済みのタグの見た目 */
+.tag-manager-item.is-deleted {
+  opacity: 0.4;
+}
+.tag-manager-item.is-deleted input {
+  text-decoration: line-through;
+  background-color: #eee;
+}
+
+/* 下部のコントロールエリア */
+.tag-manager-controls {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  flex-shrink: 0; /* このエリアは縮まないようにする */
+}
+.tag-manager-controls .add-section {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+#new-tag-input {
+  flex-grow: 1;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px 12px;
+  font-size: 14px;
+}
+#add-tag-btn {
+  padding: 8px 16px;
+  border-radius: 5px;
+  border: 1px solid #43a047;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+#add-tag-btn:hover {
+  background-color: #43a047;
+  color: white;
+}
+
+.tag-manager-controls .action-buttons {
+  display: flex;
+  justify-content: flex-end; /* ボタンを右寄せに */
+  gap: 10px;
+}
+
+#save-tags-btn,
+#cancel-tags-btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#save-tags-btn {
+  background-color: #1e88e5;
+  color: white;
+  border-color: #1976d2;
+}
+#save-tags-btn:hover {
+  background-color: #1565c0;
+}
+
+#cancel-tags-btn {
+  background-color: #f0f0f0;
+  color: #333;
+  border-color: #ccc;
+}
+#cancel-tags-btn:hover {
+  background-color: #e0e0e0;
+}
+
+/* ★★★ タグフィルターバー用の新しいスタイル ★★★ */
+
+/* タグバー全体を囲むコンテナ */
+#tag-filter-container {
+  background-color: #ffffff;
+  padding: 8px 10px;
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  /* ユーザーがテキストを選択しちゃうのを防ぐ */
+  user-select: none;
+}
+
+/* タグが並ぶ、横長のリストエリア */
+#tag-filter-list {
+  display: flex; /* タグを横並びに */
+  flex-wrap: nowrap; /* 折り返させない */
+  overflow-x: auto; /* 横スクロールを有効に */
+  gap: 8px; /* タグ同士の間隔 */
+  margin: 0 10px;
+  scroll-behavior: smooth; /* スムーズスクロールを有効に */
+  cursor: grab; /* 掴めるカーソルにする */
+
+  /* ★★★ スクロールバーを隠す★★★ */
+  scrollbar-width: none; /* Firefox用 */
+}
+#tag-filter-list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge用 */
+}
+
+/* タグボタン１つ１つのデザイン */
+.tag-filter-button {
+  padding: 3px 12px;
+  border: 1px solid #ccc;
+  border-radius: 16px;
+  background-color: #f5f5f5;
+  color: #333;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap; /* タグ名が長くても改行させない */
+  transition: all 0.2s;
+}
+.tag-filter-button:hover {
+  background-color: #e0e0e0;
+  border-color: #bbb;
+}
+
+/* 選択中のタグのデザイン */
+.tag-filter-button.is-active {
+  background-color: #1a73e8;
+  color: white;
+  border-color: #1a73e8;
+  font-weight: bold;
+}
+
+/* ★★★ タグボタンの見た目をブラッシュアップ！（完全版） ★★★ */
+
+/* --- まずはガタツキ防止のおまじないから！ --- */
+#tag-filter-container {
+  min-height: 32px;
+}
+.author-name {
+  cursor: pointer; /* チャンネル名にカーソルを合わせると指マークになる */
+}
+.author-name:hover {
+  text-decoration: underline; /* マウスオーバーで下線 */
+}
+
+/* --- タグボタンの基本設定 --- */
+.tag-filter-button {
+  transition: all 0.2s ease-out; /* アニメーションを滑らかに */
+}
+
+/* ★★★ ここが最重要ポイント！ ★★★ */
+/* 「全ての動画」以外のタグボタンの「未選択時」のスタイル */
+.tag-filter-button:not([data-tag-name="all"]) {
+  /* デフォルトの透明度を少し下げる！ */
+  opacity: 0.4;
+}
+
+/* --- 選択中のボタンを目立たせるスタイル --- */
+.tag-filter-button.is-active {
+  opacity: 1 !important; /* 透明度を100%に戻す！ */
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 2px solid rgba(255, 255, 255, 0.7) !important;
+}
+
+/* --- 種類ごとの細かいデザイン調整 --- */
+
+/* 「全ての動画」ボタンが選択されている時 */
+.tag-filter-button.is-active[data-tag-name="all"] {
+  background-color: #1a73e8;
+  color: white;
+  border-color: #1a73e8;
+  box-shadow: 0 4px 12px rgba(26, 115, 232, 0.4); /* 影も青っぽくするとリッチ！ */
+}
+
+/* チャンネル名専用タグのスタイル */
+.tag-filter-button.is-channel-tag {
+  background-color: #546e7a;
+  color: white;
+  border: 1px solid #37474f;
+}
+.tag-filter-button.is-channel-tag.is-active {
+  box-shadow: 0 4px 12px rgba(84, 110, 122, 0.5); /* 影もグレーに */
+}
+
+/* ===================================================================== */
+/* ★★★ AND/OR スイッチ用のスタイル ★★★ */
+/* ===================================================================== */
+/* ★★★ ここを修正！ visibility から display に変更！ ★★★ */
+#and-or-switch-container {
+  align-items: center;
+  gap: 6px;
+  padding-right: 15px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #555;
+}
+#and-or-switch-container .switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+#and-or-switch-container .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+#and-or-switch-container .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #43a047;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+#and-or-switch-container .slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+#and-or-switch-container input:checked + .slider {
+  background-color: #1e88e5;
+}
+#and-or-switch-container input:checked + .slider:before {
+  transform: translateX(16px);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ★★★ プライバシーポリシー機能用のスタイル (iframe版) ★★★ */
+
+/* 「？」リンクのスタイル */
+#info-popup-button {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid #aaa;
+  background-color: #f0f0f0;
+  color: #555;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none; /* 下線を消す */
+  cursor: pointer;
+  margin-left: 8px;
+  vertical-align: middle;
+  transition: all 0.2s;
+}
+#info-popup-button:hover {
+  background-color: #e0e0e0;
+  transform: scale(1.1);
+}
+
+/* ★★★ ポップアップ機能用のスタイル ★★★ */
+
+/* ポップアップコンテナ (普段は見えない) */
+#info-popup-container {
+  display: none; /* ★ 普段は完全に消しておく */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+}
+/* ★★★ JSがこのクラスを付けると、表示される！ ★★★ */
+#info-popup-container.show {
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
+
+/* 黒い背景 */
+.info-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  /* アニメーション用のCSS（もしあれば） */
+  /* animation: fadeIn 0.3s ease-out forwards; */
+}
+
+/* iframeを囲む枠 */
+.info-iframe-wrapper {
+  position: relative; /* 閉じるボタンの基準点 */
+  width: 900px;      /* 例：750px -> 800px */
+  
+  max-width: 95%;
+  height: 95vh;      /* 例：80vh -> 85vh */
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden; 
+  /* アニメーション用のCSS（もしあれば） */
+  /* animation: fadeInPopup 0.3s ease-out forwards; */
+}
+
+/* iframe本体のスタイル */
+.info-iframe-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* 閉じるボタン */
+.info-close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.info-close-button:hover {
+  background: rgba(0,0,0,0.8);
+  transform: rotate(90deg);
+}
+
+/* ★★★ タグ管理のドラッグ＆ドロップ用スタイル ★★★ */
+
+/* ドラッグ中のアイテム自体のスタイル */
+.tag-manager-item.is-dragging {
+  opacity: 0.5; /* 半透明にして、移動中ってことを分かりやすくする */
+  background-color: #d1e7fd; /* ちょっと青っぽくする */
+}
+
+/* ドラッグして他のアイテムの上に重ねた時の「隙間」のスタイル */
+.tag-manager-item.drag-over {
+  /* 上に太めの青い線を引いて、ここにドロップできるよ！ってのを示す */
+  border-top: 3px solid #4dabf7;
+  transform: scale(1.02); /* ちょっとだけ大きくして反応を良く見せる */
+}
+
+/* ドラッグできることを示すために、カーソルを変更 */
+.tag-manager-item input {
+  cursor: grab; /* 掴める手のカーソル */
+}
+.tag-manager-item.is-dragging input {
+  cursor: grabbing; /* 掴んでる最中の手のカーソル */
+}
