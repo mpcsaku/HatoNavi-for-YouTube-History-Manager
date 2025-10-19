@@ -1,6 +1,6 @@
 {
   "extName": {
-    "message": "鳩ナビ for YouTube History Manager"
+    "message": "鳩ナビ YouTube History Manager"
   },
   "extDesc": {
     "message": "Youtube公式の視聴履歴に依存しない、独自の視聴履歴を作成し管理します。独自のレジューム機能、お気に入り、タグ付け、検索機能を付与します。"
@@ -137,7 +137,7 @@
   },
 
   "AddToFavorites": {
-    "message": "お気に入りに追加"
+    "message": "お気に入りに追加\n長押しでタグ付け"
   },
   "Unfavorite": {
     "message": "お気に入り解除"

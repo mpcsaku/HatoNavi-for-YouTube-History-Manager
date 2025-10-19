@@ -860,7 +860,7 @@ async function loadAndRenderPage() {
         ? item.id.split("~")[0]
         : item.id;
       const serverUrl =
-        "https://asia-northeast1-chromeextension0206.cloudfunctions.net/Get-Youtube-Data";
+        "https://asia-northeast1-chromeextension0206.cloudfunctions.net/Get-Youtube-Info";
       return fetch(
         `${serverUrl}?videoId=${realVideoId}&fields=title,channelTitle`
       )
